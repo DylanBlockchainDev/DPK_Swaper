@@ -32,15 +32,15 @@ contract MockIERC20 is IERC20 {
         return true;
     }
 
-    function allowance(address owner, address spender) external view override returns (uint256) {
+    function allowance(address owner, address spender) external pure override returns (uint256) {
         return 0; // Stubbed out return value
     }
 
-    function totalSupply() external view override returns (uint256) {
+    function totalSupply() external pure override returns (uint256) {
         return 0; // Stubbed out return value
     }
 
-    function transferFrom(address from, address to, uint256 value) external override returns (bool) {
+    function transferFrom(address from, address to, uint256 value) external pure override returns (bool) {
         return false; // Stubbed out return value
     }
 }

@@ -5,11 +5,17 @@ import {ISwapRouter} from "../../lib/v3-periphery/contracts/interfaces/ISwapRout
 
 contract MockISwapRouter is ISwapRouter {
     function exactInputSingle(ISwapRouter.ExactInputSingleParams calldata params) external payable override returns (uint256 amountOut) {
-        // Implement logic to simulate the behavior of exactInputSingle
+        // Example calculation logic
+        // This is a simplified version. Realistic calculations would involve fetching pool data and performing precise calculations based on the pool's state.
+        // For testing purposes, this example simply returns the input amount as the output amount.
+        amountOut = params.amountIn;
     }
 
     function exactOutputSingle(ISwapRouter.ExactOutputSingleParams calldata params) external payable override returns (uint256 amountIn) {
-        // Implement logic for exactOutputSingle
+        // Example calculation logic
+        // This is a simplified version. Realistic calculations would involve fetching pool data and performing precise calculations based on the pool's state.
+        // For testing purposes, this example simply returns the input amount as the output amount.
+        amountIn = params.amountOut;
     }
 
     function exactInput(ISwapRouter.ExactInputParams calldata params) external payable override returns (uint256) {
@@ -26,7 +32,7 @@ contract MockISwapRouter is ISwapRouter {
         // Stubbed out implementation
     }
 
-    function getAddress() public view returns(address) {
-        return(address(this));
-    }
+    // function getAddress() public view returns(address) {
+    //     return(address(this));
+    // }
 }

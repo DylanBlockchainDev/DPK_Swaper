@@ -45,13 +45,18 @@ contract DPKSwaper is ReentrancyGuard {
     );
 
     /// @notice The address of the Uniswap V3 router contract.
-    address public constant routerAddress = 0xE592427A0AEce92De3Edee1F18E0157C05861564;
+    // address public constant routerAddress = 0xE592427A0AEce92De3Edee1F18E0157C05861564; 
 
     /// @notice The instance of the ISwapRouter interface connected to the router address.
-    ISwapRouter public immutable swapRouter = ISwapRouter(routerAddress);
+    ISwapRouter public immutable swapRouter;
 
     /// @notice The fee tier for the pool being swapped on.
     uint24 public constant poolFee = 3000;
+
+    constructor(address _swapRouter) {
+        require(_swapRouter != address(0), "Zero address not allowed");
+        swapRouter = ISwapRouter(_swapRouter);
+    }
 
     /// @notice Swaps an exact input amount of one token for another token.
     /// @dev Calls the Uniswap V3 router's exactInputSingle function.

@@ -11,8 +11,8 @@ contract DeployDPKSwaper is Script {
         // Start broadcasting transactions with a derived private key
         vm.startBroadcast(vm.deriveKey(vm.envString("MNEMONIC"), 0)); // private key from enviroment variabl.
 
-        // Deploy the DPKSwaper contract
-        DPKSwaper dpkSwaper = new DPKSwaper();
+        // Deploy the DPKSwaper contract with this ISwapRouter address '0xE592427A0AEce92De3Edee1F18E0157C05861564'
+        DPKSwaper dpkSwaper = new DPKSwaper(address(0xE592427A0AEce92De3Edee1F18E0157C05861564));
 
         // Stop broadcasting transactions
         vm.stopBroadcast();
