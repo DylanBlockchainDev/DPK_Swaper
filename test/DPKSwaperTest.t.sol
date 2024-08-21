@@ -3,17 +3,11 @@ pragma solidity 0.8.20;
 
 import {Test, console} from "../lib/forge-std/src/Test.sol";
 import {DPKSwaper} from "../src/DPKSwaper.sol";
-import {ISwapRouter} from "../lib/v3-periphery/contracts/interfaces/ISwapRouter.sol";
-import {IUniswapV3Pool} from "../lib/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
-import {ReentrancyGuard} from "../lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol";
 import {MockISwapRouter} from "../test/mocks/MockISwapRouter.sol"; 
 import {ERC20Mock} from "../lib/openzeppelin-contracts/contracts/mocks/token/ERC20Mock.sol";
-// import {MockIERC20} from "../test/mocks/MockIERC20.sol";
 
 contract DPKSwaperTest is Test {
     DPKSwaper dpkSwaper;
-    // MockIERC20 tokenIn;
-    // MockIERC20 tokenOut;
     ERC20Mock tokenIn;
     ERC20Mock tokenOut;
     MockISwapRouter swapRouter;

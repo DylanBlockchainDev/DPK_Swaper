@@ -6,18 +6,23 @@ import {console} from "../lib/forge-std/src/console.sol";
 import {DPKSwaper} from "../src/DPKSwaper.sol";
 
 contract DeployDPKSwaper is Script {
-    /// @notice Deploys the DPKSwaper contract.
-    function run() public {
-        // Start broadcasting transactions with a derived private key
-        vm.startBroadcast(vm.deriveKey(vm.envString("MNEMONIC"), 0)); // private key from enviroment variabl.
+    uint256 deployerPrivateKey;
+    address deployerAccount;
 
-        // Deploy the DPKSwaper contract with this ISwapRouter address '0xE592427A0AEce92De3Edee1F18E0157C05861564'
-        DPKSwaper dpkSwaper = new DPKSwaper(address(0xE592427A0AEce92De3Edee1F18E0157C05861564));
+    address public constant routerAddress = 0xE592427A0AEce92De3Edee1F18E0157C05861564;
 
-        // Stop broadcasting transactions
-        vm.stopBroadcast();
+    DPKSwaper public dpkSwaper;
 
-        // Print the address of the deployed contract
-        console.log("DPKSwaper deployed at:", address(dpkSwaper)); // sotre contract address to enviroment variable!!!
+    function setUp() public {
+        deployerPrivateKey = vm.envUint("DEV_PRIVATE_KEY");
+        deployerAccount = vm.addr(deployerPrivateKey);
+        vm.startBroadcast(deployerPrivateKey);
+    }
+
+     function run() external returns (DPKSwaper) {
+        dpkSwaper = new DPKSwaper(routerAddress);
+        console.log("DPKSwaper deployed at:", address(dpkSwaper));
+        // Your deployment code...
+        return dpkSwaper;
     }
 }
