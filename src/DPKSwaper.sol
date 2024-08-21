@@ -105,28 +105,28 @@ contract DPKSwaper is ReentrancyGuard {
         uint256 amountOut, 
         uint256 amountInMaximum
     ) 
-        external 
-        nonReentrant
-        returns (uint256 amountIn) 
+    external 
+    nonReentrant
+    returns (uint256 amountIn) 
     {
         IERC20(tokenIn).approve(address(swapRouter), amountInMaximum);
-
+        
         ISwapRouter.ExactOutputSingleParams memory params = ISwapRouter.ExactOutputSingleParams({
-                tokenIn: tokenIn,
-                tokenOut: tokenOut,
-                fee: poolFee, 
-                recipient: address(this),
-                deadline: block.timestamp,
-                amountOut: amountOut,
-                amountInMaximum: amountInMaximum,
-                sqrtPriceLimitX96: 0 
-            });
-
+            tokenIn: tokenIn,
+            tokenOut: tokenOut,
+            fee: poolFee, 
+            recipient: address(this),
+            deadline: block.timestamp,
+            amountOut: amountOut,
+            amountInMaximum: amountInMaximum,
+            sqrtPriceLimitX96: 0 
+        });
+        
         amountIn = swapRouter.exactOutputSingle(params);
-
+        
         emit SwapOutput(tokenIn, tokenOut, amountIn, amountOut);
-
-        if (amountIn < amountInMaximum) {
+        
+        if (amountIn < amountInMaximum && address(this).balance >= amountInMaximum) {
             IERC20(tokenIn).approve(address(swapRouter), 0);
             IERC20(tokenIn).transfer(address(this), amountInMaximum - amountIn);
         }
